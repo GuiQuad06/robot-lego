@@ -32,12 +32,8 @@ robot_motion_map_t motion[] = {
 int lux = 0;
 
 void setup() {
-  Serial.begin(9600);
-  while (!Serial);
-  
   // begin initialization
   if (!BLE.begin()) {
-    Serial.println("starting Bluetooth® Low Energy module failed!");
 
     while (1);
   }
@@ -77,7 +73,6 @@ void setup() {
   // start advertising
   BLE.advertise();
 
-  Serial.println(("Bluetooth® device active, waiting for connections..."));
   update_rgb(BLUE);
 }
 
@@ -94,79 +89,62 @@ void loop() {
 
 void blePeripheralConnectHandler(BLEDevice central) {
   // central connected event handler
-  Serial.print("Connected event, central: ");
-  Serial.println(central.address());
 }
 
 void blePeripheralDisconnectHandler(BLEDevice central) {
   // central disconnected event handler
-  Serial.print("Disconnected event, central: ");
-  Serial.println(central.address());
 }
 
 void switchCharacteristicWritten(BLEDevice central, BLECharacteristic characteristic) {
   // central wrote new value to characteristic, update LED
-  Serial.print("Characteristic event, written: ");
-
   if (switchCharacteristic.value()) {
-    Serial.println("LED Green");
     update_rgb(GREEN);
   } else {
-    Serial.println("LED Blue");
     update_rgb(BLUE);
   }
 }
 
 void motionCharacteristicWritten(BLEDevice central, BLECharacteristic characteristic) {
   // central wrote new value to characteristic, drive the robot according to the value
-  Serial.print("Characteristic event, written: ");
 
   switch (motionCharacteristic.value()) {
     case 1:
       robot_lego.auto_mode = AUTO_MODE;
-      Serial.println("Auto mode");
       update_rgb(RED);
       break;
     case 2:
       if (!robot_lego.auto_mode) {
         motion[BACKWARD].action();
-        Serial.println(motion[BACKWARD].name);
       }
       break;
     case 3:
       robot_lego.auto_mode = MANU_MODE;
-      Serial.println("Manual mode");
       update_rgb(BLUE);
       break;
     case 4:
       if (!robot_lego.auto_mode) {
         motion[LEFT].action();
-        Serial.println(motion[LEFT].name);
       }
       break;
     case 6:
       if (!robot_lego.auto_mode) {
         motion[RIGHT].action();
-        Serial.println(motion[RIGHT].name);
       }
       break;
     case 8:
       if (!robot_lego.auto_mode) {
         motion[FORWARD].action();
-        Serial.println(motion[FORWARD].name);
       }
       break;
     default:
       if (!robot_lego.auto_mode) {
         motion[STOP].action();
-        Serial.println(motion[STOP].name);
       }
   }
 }
 
 void speedCharacteristicWritten(BLEDevice central, BLECharacteristic characteristic) {
   // central wrote new value to characteristic, update the speed of the robot
-  Serial.print("Characteristic event, written: ");
 
   robot_lego.speed = speedCharacteristic.value();
 
@@ -175,15 +153,11 @@ void speedCharacteristicWritten(BLEDevice central, BLECharacteristic characteris
   } else if (robot_lego.speed > MAX_SPEED) {
     robot_lego.speed = MAX_SPEED;
   }
-  Serial.println(robot_lego.speed);
 
   update_speed(robot_lego.speed);
 }
 
 void luxCharacteristicRead(BLEDevice central, BLECharacteristic characteristic) {
   // central read the characteristic, update the lux value
-  Serial.print("Characteristic event, read: ");
-  Serial.println(lux);
-
   luxCharacteristic.writeValue(lux);
 }
