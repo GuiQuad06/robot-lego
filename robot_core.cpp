@@ -32,10 +32,8 @@ void init_io_robot(robot_state_t *robot)
 */
 void right()
 {
-  analogWrite(PWML, ZERO_SPEED);
-
   digitalWrite(IN2,LOW);
-  digitalWrite(IN1,HIGH);
+  digitalWrite(IN1,LOW);
   digitalWrite(IN4,LOW);
   digitalWrite(IN3,HIGH);
 }
@@ -46,11 +44,9 @@ void right()
 */
 void left()
 {
-  analogWrite(PWMR, ZERO_SPEED);
-
   digitalWrite(IN2,HIGH);
   digitalWrite(IN1,LOW);
-  digitalWrite(IN4,HIGH);
+  digitalWrite(IN4,LOW);
   digitalWrite(IN3,LOW);
 }
 
