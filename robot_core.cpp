@@ -27,10 +27,13 @@ void init_io_robot(robot_state_t *robot)
 }
 
 /**
- * @brief Move robot forward
+ * @brief Move robot right
+ * Only right motors are moving
 */
-void forward()
+void right()
 {
+  analogWrite(PWML, ZERO_SPEED);
+
   digitalWrite(IN2,LOW);
   digitalWrite(IN1,HIGH);
   digitalWrite(IN4,LOW);
@@ -38,10 +41,13 @@ void forward()
 }
 
 /**
- * @brief Move robot backward
+ * @brief Move robot left
+ * Only left motors are moving
 */
-void backward()
+void left()
 {
+  analogWrite(PWMR, ZERO_SPEED);
+
   digitalWrite(IN2,HIGH);
   digitalWrite(IN1,LOW);
   digitalWrite(IN4,HIGH);
@@ -49,9 +55,9 @@ void backward()
 }
 
 /**
- * @brief Move robot left
+ * @brief Move robot backward
 */
-void left()
+void backward()
 {
   digitalWrite(IN2,LOW);
   digitalWrite(IN1,HIGH);
@@ -60,9 +66,9 @@ void left()
 }
 
 /**
- * @brief Move robot right
+ * @brief Move robot forward
 */
-void right()
+void forward()
 {
   digitalWrite(IN1,LOW);
   digitalWrite(IN2,HIGH);
