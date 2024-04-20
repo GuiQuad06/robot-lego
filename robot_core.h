@@ -4,12 +4,12 @@
 #include <stdint.h>
 
 // L298 Pinout with Arduino MKR WIFI1010
-#define IN1 11 //Forward right
-#define IN2 12 //Backward right
-#define IN3 2 //Forward left
-#define IN4 3 //Backward left
-#define PWML 4 //ENA
-#define PWMR 5 //ENB
+#define IN1 11 //Backward Left
+#define IN2 12 //Forward Left
+#define IN3 2 //Forward Right
+#define IN4 3 //Backward Right
+#define PWMR 4 //ENA
+#define PWML 5 //ENB
 #define MAX_SPEED 255u
 #define MIN_SPEED 120u
 
