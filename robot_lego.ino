@@ -11,6 +11,9 @@
 #include "rgb.h"
 #include "robot_core.h"
 
+// No motors in TEST_MODE
+#define TEST_MODE    (1u)
+
 BLEService robotService("19B10000-E8F2-537E-4F6C-D104768A1214"); // create service for the Robot
 
 // create switch characteristic and allow remote device to read and write
@@ -129,7 +132,9 @@ void motionCharacteristicWritten(BLEDevice central, BLECharacteristic characteri
       break;
     case 2:
       if (!robot_lego.auto_mode) {
+#if (TEST_MODE == 0u)
         motion[BACKWARD].action();
+#endif
         Serial.println(motion[BACKWARD].name);
       }
       break;
@@ -140,25 +145,33 @@ void motionCharacteristicWritten(BLEDevice central, BLECharacteristic characteri
       break;
     case 4:
       if (!robot_lego.auto_mode) {
+#if (TEST_MODE == 0u)
         motion[LEFT].action();
+#endif
         Serial.println(motion[LEFT].name);
       }
       break;
     case 6:
       if (!robot_lego.auto_mode) {
+#if (TEST_MODE == 0u)
         motion[RIGHT].action();
+#endif
         Serial.println(motion[RIGHT].name);
       }
       break;
     case 8:
       if (!robot_lego.auto_mode) {
+#if (TEST_MODE == 0u)
         motion[FORWARD].action();
+#endif
         Serial.println(motion[FORWARD].name);
       }
       break;
     default:
       if (!robot_lego.auto_mode) {
+#if (TEST_MODE == 0u)
         motion[STOP].action();
+#endif
         Serial.println(motion[STOP].name);
       }
   }
