@@ -109,7 +109,7 @@ void blePeripheralDisconnectHandler(BLEDevice central) {
 
 void switchCharacteristicWritten(BLEDevice central, BLECharacteristic characteristic) {
   // central wrote new value to characteristic, update LED
-  Serial.print("Characteristic event, written: ");
+  Serial.print("Switch Characteristic event, written: ");
 
   if (switchCharacteristic.value()) {
     Serial.println("LED Green");
@@ -122,7 +122,7 @@ void switchCharacteristicWritten(BLEDevice central, BLECharacteristic characteri
 
 void motionCharacteristicWritten(BLEDevice central, BLECharacteristic characteristic) {
   // central wrote new value to characteristic, drive the robot according to the value
-  Serial.print("Characteristic event, written: ");
+  Serial.print("Motion Characteristic event, written: ");
 
   switch (motionCharacteristic.value()) {
     case 1:
@@ -179,7 +179,7 @@ void motionCharacteristicWritten(BLEDevice central, BLECharacteristic characteri
 
 void speedCharacteristicWritten(BLEDevice central, BLECharacteristic characteristic) {
   // central wrote new value to characteristic, update the speed of the robot
-  Serial.print("Characteristic event, written: ");
+  Serial.print("Speed Characteristic event, written: ");
 
   robot_lego.speed = speedCharacteristic.value();
 
@@ -195,7 +195,7 @@ void speedCharacteristicWritten(BLEDevice central, BLECharacteristic characteris
 
 void luxCharacteristicRead(BLEDevice central, BLECharacteristic characteristic) {
   // central read the characteristic, update the lux value
-  Serial.print("Characteristic event, read: ");
+  Serial.print("Lux Characteristic event, read: ");
   Serial.println(lux);
 
   luxCharacteristic.writeValue(lux);
